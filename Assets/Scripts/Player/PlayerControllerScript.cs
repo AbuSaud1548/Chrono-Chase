@@ -67,9 +67,30 @@ public class PlayerControllerScript : MonoBehaviour
             camAnchor.transform.eulerAngles = new Vector3(v, 0, 0) + transform.eulerAngles;
     }
 
+    /// <summary>
+    /// Will check if Player is standing on the ground or not
+    /// </summary>
+    /// <returns></returns>
     public bool IsPlayerGrounded()
     {
-        // TODO : Figure out a way to detect whether the player is standing on the ground or not
-        return Physics.Raycast(transform.position, Vector3.down, 1f);
+        if (col != null)
+        {
+            Collider[] c = Physics.OverlapCapsule(col.bounds.center, col.bounds.min + new Vector3(0, col.radius * 0.985f, 0), col.radius * 0.99f);
+
+            foreach (Collider cld in c)
+                if (cld != col)
+                    return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Makes the player jump
+    /// </summary>
+    public void Jump()
+    {
+        if (rb != null)
+            if (IsPlayerGrounded())
+                rb.velocity += Vector3.up * jumpStrength;
     }
 }
