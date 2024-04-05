@@ -58,6 +58,6 @@ public class PlayerControllerScript : MonoBehaviour
     public bool IsPlayerGrounded()
     {
         // TODO : Figure out a way to detect whether the player is standing on the ground or not
-        return true;
+        return Physics.Raycast(transform.position, Vector3.down, 1f);
     }
 }
