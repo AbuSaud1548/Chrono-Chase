@@ -107,4 +107,13 @@ public class PlayerControllerScript : MonoBehaviour
             if (IsPlayerGrounded())
                 rb.velocity += Vector3.up * jumpStrength;
     }
+
+    /// <summary>
+    /// Will return true when Player is pressing the sprint button
+    /// </summary>
+    /// <returns></returns>
+    public bool IsPlayerSprinting() 
+    {
+        return Input.GetKeyDown(KeyCode.LeftShift);
+    }
 }
