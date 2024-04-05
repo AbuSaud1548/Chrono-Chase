@@ -44,13 +44,32 @@ public class PlayerControllerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Gets the rigid body and collider of the player
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
+
+        // Locks the mouse in the center of the screen and hides it
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Left clicking will lock the mouse and hide it
+        if (Input.GetMouseButtonDown(0))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        // Pressing escape will free mouse and make it visible
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        
+        // Player jumping
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
@@ -80,6 +99,7 @@ public class PlayerControllerScript : MonoBehaviour
         if (camAnchor != null) // if cam anchor is not null, update the vertical camera orbit angle
             camAnchor.transform.eulerAngles = new Vector3(v, 0, 0) + transform.eulerAngles;
 
+        // Player grounded friction
         rb.velocity *= IsPlayerGrounded() ? 0.8f : 0.99f;
     }
 
@@ -91,13 +111,15 @@ public class PlayerControllerScript : MonoBehaviour
     {
         if (col != null)
         {
+            // Gets all colliders overlapping the Physics.OverlapCapsule bounds
             Collider[] c = Physics.OverlapCapsule(col.bounds.center, col.bounds.min + new Vector3(0, col.radius * 0.985f, 0), col.radius * 0.99f);
 
+            // Will return true if it finds a collider that is not the player's collider
             foreach (Collider cld in c)
                 if (cld != col)
                     return true;
         }
-        return false;
+        return false; // Returns false if it didn't find any other collider
     }
 
     /// <summary>
@@ -106,7 +128,7 @@ public class PlayerControllerScript : MonoBehaviour
     public void Jump()
     {
         if (rb != null)
-            if (IsPlayerGrounded())
+            if (IsPlayerGrounded()) // Will check if the player is grounded before applying the jump
                 rb.velocity += Vector3.up * jumpStrength;
     }
 
