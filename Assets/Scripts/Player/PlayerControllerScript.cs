@@ -18,9 +18,13 @@ public class PlayerControllerScript : MonoBehaviour
     /// </summary>
     public float maxVerticalLook = 60f;
     /// <summary>
-    /// How fast the player can move
+    /// How fast the player can move around
     /// </summary>
     public float movementSpeed = 0.25f;
+    /// <summary>
+    /// How fast the player sprints
+    /// </summary>
+    public float sprintingSpeed = 0.5f;
     /// <summary>
     /// How strong the jump is
     /// </summary>
@@ -54,14 +58,14 @@ public class PlayerControllerScript : MonoBehaviour
             Jump();
         }
 
-        Debug.Log(IsPlayerGrounded());
+        Debug.Log(IsPlayerSprinting());
     }
 
     void FixedUpdate()
     {
         // Uses Horizontal and Vertical Axis movement to figure out which direction the player wants to move towards
-        Vector3 moveV = transform.forward * movementSpeed * Input.GetAxis("Vertical") * (IsPlayerGrounded() ? 1 : airControl);
-        Vector3 moveH = transform.right * movementSpeed * Input.GetAxis("Horizontal") * (IsPlayerGrounded() ? 1 : airControl);
+        Vector3 moveV = transform.forward * (IsPlayerSprinting() ? sprintingSpeed : movementSpeed) * Input.GetAxis("Vertical") * (IsPlayerGrounded() ? 1 : airControl);
+        Vector3 moveH = transform.right * (IsPlayerSprinting() ? sprintingSpeed : movementSpeed) * Input.GetAxis("Horizontal") * (IsPlayerGrounded() ? 1 : airControl);
 
         // Sets the players position to the direction the player wants to move towards
         rb.velocity += new Vector3(moveV.x, 0, moveV.z);
