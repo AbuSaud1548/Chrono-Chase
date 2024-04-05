@@ -22,6 +22,8 @@ public class PlayerControllerScript : MonoBehaviour
     /// </summary>
     public float movementSpeed = 0.25f;
 
+    public float jumpStrength = 1.0f;
+
     // Look rotation
     float v = 0f;
     float h = 0f;
@@ -33,6 +35,16 @@ public class PlayerControllerScript : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            transform.GetComponent<Rigidbody>().velocity += Vector3.up * jumpStrength;
+        }
+
+        Debug.Log(IsPlayerGrounded());
+    }
+
     void FixedUpdate()
     {
         // Uses Horizontal and Vertical Axis movement to figure out which direction the player wants to move towards
