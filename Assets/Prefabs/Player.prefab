@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camAnchor: {fileID: 8884133069129559228}
-  sensitivity: 32
+  sensitivity: 1280
   maxVerticalLook: 60
   movementSpeed: 1.25
   sprintingSpeed: 2.5

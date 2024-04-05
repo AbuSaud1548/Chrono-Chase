@@ -56,6 +56,18 @@ public class PlayerControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Uses Mouse input to calculate where the player is gonna look at
+        v -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+        h += Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+
+        // Clamps the up down camera movement to prevent camera from flipping over
+        v = Mathf.Clamp(v, -maxVerticalLook, maxVerticalLook);
+
+        transform.eulerAngles = new Vector3(0, h, 0); // Updates player horizontal rotation
+        if (camAnchor != null) // if cam anchor is not null, update the vertical camera orbit angle
+            camAnchor.transform.eulerAngles = new Vector3(v, 0, 0) + transform.eulerAngles;
+
+
         // Left clicking will lock the mouse and hide it
         if (Input.GetMouseButtonDown(0))
         {
@@ -87,17 +99,6 @@ public class PlayerControllerScript : MonoBehaviour
         // Sets the players position to the direction the player wants to move towards
         rb.velocity += new Vector3(moveV.x, 0, moveV.z);
         rb.velocity += new Vector3(moveH.x, 0, moveH.z);
-
-        // Uses Mouse input to calculate where the player is gonna look at
-        v -= Input.GetAxis("Mouse Y") * sensitivity;
-        h += Input.GetAxis("Mouse X") * sensitivity;
-
-        // Clamps the up down camera movement to prevent camera from flipping over
-        v = Mathf.Clamp(v, -maxVerticalLook, maxVerticalLook);
-        
-        transform.eulerAngles = new Vector3(0, h, 0); // Updates player horizontal rotation
-        if (camAnchor != null) // if cam anchor is not null, update the vertical camera orbit angle
-            camAnchor.transform.eulerAngles = new Vector3(v, 0, 0) + transform.eulerAngles;
 
         // Player grounded friction
         rb.velocity *= IsPlayerGrounded() ? 0.8f : 0.99f;
