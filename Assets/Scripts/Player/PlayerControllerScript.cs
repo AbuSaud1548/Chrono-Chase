@@ -21,25 +21,33 @@ public class PlayerControllerScript : MonoBehaviour
     /// How fast the player can move
     /// </summary>
     public float movementSpeed = 0.25f;
-
+    /// <summary>
+    /// How strong the jump is
+    /// </summary>
     public float jumpStrength = 1.0f;
 
     // Look rotation
     float v = 0f;
     float h = 0f;
 
+    Rigidbody rb;
+    CapsuleCollider col;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.V)) transform.position += new Vector3(0, 10, 0);
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            transform.GetComponent<Rigidbody>().velocity += Vector3.up * jumpStrength;
+            Jump();
         }
 
         Debug.Log(IsPlayerGrounded());
@@ -52,8 +60,8 @@ public class PlayerControllerScript : MonoBehaviour
         Vector3 moveH = transform.right * movementSpeed * Input.GetAxis("Horizontal");
 
         // Sets the players position to the direction the player wants to move towards
-        transform.position += new Vector3(moveV.x, 0, moveV.z);
-        transform.position += new Vector3(moveH.x, 0, moveH.z);
+        rb.velocity += new Vector3(moveV.x, 0, moveV.z);
+        rb.velocity += new Vector3(moveH.x, 0, moveH.z);
 
         // Uses Mouse input to calculate where the player is gonna look at
         v -= Input.GetAxis("Mouse Y") * sensitivity;
@@ -65,6 +73,8 @@ public class PlayerControllerScript : MonoBehaviour
         transform.eulerAngles = new Vector3(0, h, 0); // Updates player horizontal rotation
         if (camAnchor != null) // if cam anchor is not null, update the vertical camera orbit angle
             camAnchor.transform.eulerAngles = new Vector3(v, 0, 0) + transform.eulerAngles;
+
+        rb.velocity *= IsPlayerGrounded() ? 0.8f : 0.99f;
     }
 
     /// <summary>
