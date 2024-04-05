@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7189307195345184036}
   - component: {fileID: 7036841092425330591}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Player Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -326,8 +326,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camAnchor: {fileID: 8884133069129559228}
+  cam: {fileID: 7189307195345184036}
   sensitivity: 1280
-  maxVerticalLook: 60
+  maxVerticalLook: 80
   movementSpeed: 1.25
   sprintingSpeed: 2.5
   jumpStrength: 5
