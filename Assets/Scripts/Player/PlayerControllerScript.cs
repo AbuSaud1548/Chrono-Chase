@@ -38,8 +38,12 @@ public class PlayerControllerScript : MonoBehaviour
         
         transform.eulerAngles = new Vector3(0, h, 0);
         if (camAnchor != null)
-        {
             camAnchor.transform.eulerAngles = new Vector3(v, 0, 0) + transform.eulerAngles;
-        }
+    }
+
+    public bool IsPlayerGrounded()
+    {
+        // TODO : Figure out a way to detect whether the player is standing on the ground or not
+        return true;
     }
 }
