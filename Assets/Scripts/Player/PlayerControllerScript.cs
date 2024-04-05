@@ -5,9 +5,21 @@ using UnityEngine;
 
 public class PlayerControllerScript : MonoBehaviour
 {
+    /// <summary>
+    /// Camera Anchor
+    /// </summary>
     public GameObject camAnchor;
+    /// <summary>
+    /// Mouse Sensitivity for camera rotation
+    /// </summary>
     public float sensitivity = 10.0f;
+    /// <summary>
+    /// How far up or down can you look
+    /// </summary>
     public float maxVerticalLook = 60f;
+    /// <summary>
+    /// How fast the player can move
+    /// </summary>
     public float movementSpeed = 0.25f;
 
     // Look rotation
