@@ -25,6 +25,10 @@ public class PlayerControllerScript : MonoBehaviour
     /// How strong the jump is
     /// </summary>
     public float jumpStrength = 1.0f;
+    /// <summary>
+    /// How easily you can move midair
+    /// </summary>
+    public float airControl = 0.1f;
 
     // Look rotation
     float v = 0f;
@@ -56,8 +60,8 @@ public class PlayerControllerScript : MonoBehaviour
     void FixedUpdate()
     {
         // Uses Horizontal and Vertical Axis movement to figure out which direction the player wants to move towards
-        Vector3 moveV = transform.forward * movementSpeed * Input.GetAxis("Vertical");
-        Vector3 moveH = transform.right * movementSpeed * Input.GetAxis("Horizontal");
+        Vector3 moveV = transform.forward * movementSpeed * Input.GetAxis("Vertical") * (IsPlayerGrounded() ? 1 : airControl);
+        Vector3 moveH = transform.right * movementSpeed * Input.GetAxis("Horizontal") * (IsPlayerGrounded() ? 1 : airControl);
 
         // Sets the players position to the direction the player wants to move towards
         rb.velocity += new Vector3(moveV.x, 0, moveV.z);

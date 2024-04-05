@@ -328,8 +328,9 @@ MonoBehaviour:
   camAnchor: {fileID: 8884133069129559228}
   sensitivity: 32
   maxVerticalLook: 60
-  movementSpeed: 1
+  movementSpeed: 1.25
   jumpStrength: 5
+  airControl: 0.1
 --- !u!1 &8884133069129559228
 GameObject:
   m_ObjectHideFlags: 0
