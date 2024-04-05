@@ -73,14 +73,11 @@ public class PlayerControllerScript : MonoBehaviour
 
         if (camAnchor != null)
         {
-            float camDist = 5;
+            float camDist = 5; // Max camera distance
             RaycastHit hit;
-            Physics.Raycast(camAnchor.transform.position, -camAnchor.transform.forward, out hit, camDist);
-            if (cam != null)
-            {
+            Physics.Raycast(camAnchor.transform.position, -camAnchor.transform.forward, out hit, camDist); // does a raycast for camera collision check
+            if (cam != null) // Adjusts camera so that it doesn't clip into objects and scenes
                 cam.transform.localPosition = new Vector3(0, 0, -(hit.collider != null ? hit.distance - 0.3f : camDist));
-            }
-            if (hit.collider != null) Debug.Log(hit.distance - 0.25f);
         }
 
         // Left clicking will lock the mouse and hide it
