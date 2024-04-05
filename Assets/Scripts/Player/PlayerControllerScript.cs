@@ -23,9 +23,11 @@ public class PlayerControllerScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Uses Horizontal and Vertical Axis movement to figure out which direction the player wants to move towards
         Vector3 moveV = transform.forward * movementSpeed * Input.GetAxis("Vertical");
         Vector3 moveH = transform.right * movementSpeed * Input.GetAxis("Horizontal");
 
+        // Sets the players position to the direction the player wants to move towards
         transform.position += new Vector3(moveV.x, 0, moveV.z);
         transform.position += new Vector3(moveH.x, 0, moveH.z);
 
@@ -36,8 +38,8 @@ public class PlayerControllerScript : MonoBehaviour
         // Clamps the up down camera movement to prevent camera from flipping over
         v = Mathf.Clamp(v, -maxVerticalLook, maxVerticalLook);
         
-        transform.eulerAngles = new Vector3(0, h, 0);
-        if (camAnchor != null)
+        transform.eulerAngles = new Vector3(0, h, 0); // Updates player horizontal rotation
+        if (camAnchor != null) // if cam anchor is not null, update the vertical camera orbit angle
             camAnchor.transform.eulerAngles = new Vector3(v, 0, 0) + transform.eulerAngles;
     }
 
