@@ -51,8 +51,6 @@ public class PlayerControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V)) transform.position += new Vector3(0, 10, 0);
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
