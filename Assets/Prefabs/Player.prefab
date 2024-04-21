@@ -346,7 +346,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657993d11c5f5884ebe2a23e79771f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 5946921414752388210, guid: f296b81ec3e7dd848af4fd4873dd1553, type: 3}
+  ammo: 16
+  shootPower: 10
 --- !u!1 &8884133069129559228
 GameObject:
   m_ObjectHideFlags: 0

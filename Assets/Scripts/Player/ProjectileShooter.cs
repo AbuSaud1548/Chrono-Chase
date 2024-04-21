@@ -6,7 +6,7 @@ public class ProjectileShooter : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public uint ammo = 16;
-    public float shootPower = 2;
+    public float shootPower = 16;
     PlayerControllerScript playerControllerScript;
 
     void Awake()
@@ -28,6 +28,7 @@ public class ProjectileShooter : MonoBehaviour
                     Rigidbody rb;
                     if (instProjectile.TryGetComponent<Rigidbody>(out rb))
                         rb.velocity = camAnchorTransform.forward * shootPower;
+                    Debug.Log("Ammo Remaining = " + ammo);
                 }
             }
         }

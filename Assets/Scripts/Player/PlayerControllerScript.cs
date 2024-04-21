@@ -98,8 +98,6 @@ public class PlayerControllerScript : MonoBehaviour
         {
             Jump();
         }
-
-        Debug.Log(IsPlayerSprinting());
     }
 
     void FixedUpdate()
