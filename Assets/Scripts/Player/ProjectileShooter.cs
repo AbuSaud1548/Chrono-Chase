@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class ProjectileShooter : MonoBehaviour
 {
-    public GameObject projectile;
+    public GameObject projectilePrefab;
+    public uint ammo = 16;
+    public float shootPower = 2;
     PlayerControllerScript playerControllerScript;
 
     void Awake()
     {
-        playerControllerScript = GetComponent<PlayerControllerScript>();
+        playerControllerScript = gameObject.GetComponent<PlayerControllerScript>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (playerControllerScript != null && projectilePrefab != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0)) 
+            {
+                if (ammo > 0)
+                {
+                    ammo--;
+                    Transform camAnchorTransform = playerControllerScript.camAnchor.transform;
+                    GameObject instProjectile = Instantiate(projectilePrefab, camAnchorTransform.position + (camAnchorTransform.forward * gameObject.GetComponent<CapsuleCollider>().radius), new Quaternion());
+                    Rigidbody rb;
+                    if (instProjectile.TryGetComponent<Rigidbody>(out rb))
+                        rb.velocity = camAnchorTransform.forward * shootPower;
+                }
+            }
+        }
     }
 }
