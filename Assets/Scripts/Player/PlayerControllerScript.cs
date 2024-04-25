@@ -38,6 +38,9 @@ public class PlayerControllerScript : MonoBehaviour
     /// </summary>
     public float airControl = 0.1f;
 
+    private Animator animator;
+
+
     // Look rotation
     float v = 0f;
     float h = 0f;
@@ -48,6 +51,7 @@ public class PlayerControllerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         // Gets the rigid body and collider of the player
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
@@ -92,11 +96,41 @@ public class PlayerControllerScript : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        
+
         // Player jumping
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+            animator.SetBool("IsJumping", true);
+        }
+        else {
+            if(IsPlayerGrounded()){
+            animator.SetBool("IsJumping", false);
+            }
+
+        }
+
+
+        if (IsPlayerMoving())
+        {
+            // Set animator parameter for movement to true
+            animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            // Set animator parameter for movement to false
+            animator.SetBool("isMoving", false);
+        }
+
+         if (IsPlayerSprinting())
+        {
+            // Set animator parameter for movement to true
+            animator.SetBool("IsRunning", true);
+        }
+        else
+        {
+            // Set animator parameter for movement to false
+            animator.SetBool("IsRunning", false);
         }
     }
 
@@ -131,6 +165,11 @@ public class PlayerControllerScript : MonoBehaviour
                     return true;
         }
         return false; // Returns false if it didn't find any other collider
+    }
+
+    public bool IsPlayerMoving()
+    {
+        return Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
     }
 
     /// <summary>
