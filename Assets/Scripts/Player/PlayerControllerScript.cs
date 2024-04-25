@@ -111,9 +111,9 @@ public class PlayerControllerScript : MonoBehaviour
         }
 
 
-        animator.SetBool("isMoving", IsPlayerMoving());
+        animator.SetBool("isMoving", IsPlayerMoving() && !IsPlayerSprinting());
 
-        animator.SetBool("IsRunning", IsPlayerSprinting());
+        animator.SetBool("IsRunning", IsPlayerMoving() && IsPlayerSprinting());
     }
 
     void FixedUpdate()
