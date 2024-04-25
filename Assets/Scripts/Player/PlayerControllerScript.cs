@@ -111,27 +111,9 @@ public class PlayerControllerScript : MonoBehaviour
         }
 
 
-        if (IsPlayerMoving())
-        {
-            // Set animator parameter for movement to true
-            animator.SetBool("isMoving", true);
-        }
-        else
-        {
-            // Set animator parameter for movement to false
-            animator.SetBool("isMoving", false);
-        }
+        animator.SetBool("isMoving", IsPlayerMoving());
 
-         if (IsPlayerSprinting())
-        {
-            // Set animator parameter for movement to true
-            animator.SetBool("IsRunning", true);
-        }
-        else
-        {
-            // Set animator parameter for movement to false
-            animator.SetBool("IsRunning", false);
-        }
+        animator.SetBool("IsRunning", IsPlayerSprinting());
     }
 
     void FixedUpdate()
