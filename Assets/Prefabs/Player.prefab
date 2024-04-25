@@ -223,7 +223,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5946921414752388210, guid: b62d111403c346a498be3df6a501b853, type: 3}
   infiniteAmmo: 1
   ammo: 16
-  shootPower: 32
+  shootPower: 24
 --- !u!1 &8884133069129559228
 GameObject:
   m_ObjectHideFlags: 0
