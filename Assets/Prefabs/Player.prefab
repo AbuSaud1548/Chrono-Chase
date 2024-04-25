@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 2455271316257748486}
   - component: {fileID: 787147981607443434}
   - component: {fileID: 19542608361546862}
+  - component: {fileID: 650758715797171077}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -333,6 +334,21 @@ MonoBehaviour:
   sprintingSpeed: 2.5
   jumpStrength: 5
   airControl: 0.1
+--- !u!114 &650758715797171077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3793150732889667376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 657993d11c5f5884ebe2a23e79771f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 5946921414752388210, guid: f296b81ec3e7dd848af4fd4873dd1553, type: 3}
+  ammo: 16
+  shootPower: 10
 --- !u!1 &8884133069129559228
 GameObject:
   m_ObjectHideFlags: 0

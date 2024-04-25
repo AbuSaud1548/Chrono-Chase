@@ -132,9 +132,6 @@ public class PlayerControllerScript : MonoBehaviour
             // Set animator parameter for movement to false
             animator.SetBool("IsRunning", false);
         }
-
-        Debug.Log(IsPlayerSprinting());
-
     }
 
     void FixedUpdate()
