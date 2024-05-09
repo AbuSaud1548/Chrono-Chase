@@ -75,14 +75,14 @@ public class PlayerControllerScript : MonoBehaviour
         if (camAnchor != null) // if cam anchor is not null, update the vertical camera orbit angle
             camAnchor.transform.eulerAngles = new Vector3(v, 0, 0) + transform.eulerAngles;
 
-        if (camAnchor != null)
-        {
-            float camDist = 5; // Max camera distance
-            RaycastHit hit;
-            Physics.Raycast(camAnchor.transform.position, -camAnchor.transform.forward, out hit, camDist); // does a raycast for camera collision check
-            if (cam != null) // Adjusts camera so that it doesn't clip into objects and scenes
-                cam.transform.localPosition = new Vector3(0, 0, -(hit.collider != null ? hit.distance - 0.3f : camDist));
-        }
+        //if (camAnchor != null)
+        //{
+        //    float camDist = 5; // Max camera distance
+        //    RaycastHit hit;
+        //    Physics.Raycast(camAnchor.transform.position, -camAnchor.transform.forward, out hit, camDist); // does a raycast for camera collision check
+        //    if (cam != null) // Adjusts camera so that it doesn't clip into objects and scenes
+        //        cam.transform.localPosition = new Vector3(0, 0, -(hit.collider != null ? hit.distance - 0.3f : camDist));
+        //}
 
         // Left clicking will lock the mouse and hide it
         if (Input.GetMouseButtonDown(0))
