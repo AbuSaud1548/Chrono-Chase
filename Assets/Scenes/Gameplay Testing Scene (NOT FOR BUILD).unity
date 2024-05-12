@@ -466,6 +466,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dreyar By M.Aure
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 370d90137ae471e49b0edcda152b0e39, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 78d779b985282ee42961a178570d5b0f, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 370d90137ae471e49b0edcda152b0e39, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -700,6 +708,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4744a1670faf38f42ab526ef780cf16e, type: 3}
       propertyPath: m_Name
       value: Vanguard By T. Choonyung
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 4744a1670faf38f42ab526ef780cf16e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d2ea063f4b4d6294ea79b112fa768533, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 4744a1670faf38f42ab526ef780cf16e, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
