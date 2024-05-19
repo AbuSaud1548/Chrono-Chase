@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class PauseMenu : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.CapsLock))
         {
-            if (isPaused )
+            if (isPaused)
             {
                 ResumeGame();
             }
@@ -26,7 +28,25 @@ public class PauseMenu : MonoBehaviour
                 PauseGame();
             }
         }
+        if (isPaused)
+        {
+            // Stop processing input if the game is paused
+            return;
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Check if the mouse button was clicked for shooting
+            if (!IsPointerOverUIObject())
+            {
+                // Process shooting logic here
+                // ...
+            }
+        }
+
+        // Process other input if the game is not paused
+        // ...
     }
+
 
     public void PauseGame()
     {
@@ -40,5 +60,26 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void Return()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        return results.Count > 0;
     }
 }
