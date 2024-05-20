@@ -101,19 +101,21 @@ public class PlayerControllerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
-            animator.SetBool("IsJumping", true);
+            if (animator != null) animator.SetBool("IsJumping", true);
         }
         else {
             if(IsPlayerGrounded()){
-            animator.SetBool("IsJumping", false);
+                if (animator != null) animator.SetBool("IsJumping", false);
             }
 
         }
 
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", IsPlayerMoving() && !IsPlayerSprinting());
 
-        animator.SetBool("isMoving", IsPlayerMoving() && !IsPlayerSprinting());
-
-        animator.SetBool("IsRunning", IsPlayerMoving() && IsPlayerSprinting());
+            animator.SetBool("IsRunning", IsPlayerMoving() && IsPlayerSprinting());
+        }
     }
 
     void FixedUpdate()
