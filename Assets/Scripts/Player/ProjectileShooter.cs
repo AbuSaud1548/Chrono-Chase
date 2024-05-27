@@ -8,23 +8,18 @@ public class ProjectileShooter : MonoBehaviour
     public bool infiniteAmmo = true;
     public uint ammo = 16;
     public float shootPower = 16;
-    PlayerControllerScript playerControllerScript;
-
-    void Awake()
-    {
-        playerControllerScript = gameObject.GetComponent<PlayerControllerScript>();
-    }
+    public GameObject camera;
 
     void Update()
     {
-        if (playerControllerScript != null && projectilePrefab != null)
+        if (camera != null && projectilePrefab != null)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0)) 
             {
                 if (ammo > 0 || infiniteAmmo)
                 {
                     if (!infiniteAmmo) ammo--;
-                    Transform camAnchorTransform = playerControllerScript.camAnchor.transform;
+                    Transform camAnchorTransform = camera.transform;
                     GameObject instProjectile = Instantiate(projectilePrefab, camAnchorTransform.position + (camAnchorTransform.forward * gameObject.GetComponent<CapsuleCollider>().radius), new Quaternion());
                     Rigidbody rb;
                     if (instProjectile.TryGetComponent<Rigidbody>(out rb))
