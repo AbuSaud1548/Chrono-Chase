@@ -73,6 +73,8 @@ public class FirstPersonController : MonoBehaviour
     public float sprintFOV = 80f;
     public float sprintFOVStepTime = 10f;
 
+    public bool canSprint = true;
+
     // Sprint Bar
     public bool useSprintBar = true;
     public bool hideBarWhenFull = true;
@@ -385,7 +387,7 @@ public class FirstPersonController : MonoBehaviour
             }
 
             // All movement calculations shile sprint is active
-            if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
+            if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown && canSprint)
             {
                 targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
 

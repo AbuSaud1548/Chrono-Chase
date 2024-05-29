@@ -165,10 +165,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5946921414752388210, guid: b62d111403c346a498be3df6a501b853, type: 3}
+  requiresChargeUp: 1
+  doesChargeAffectFOV: 1
+  chargeUpTime: 1
   infiniteAmmo: 1
   ammo: 16
   shootPower: 24
-  camera: {fileID: 4459864851310106424}
+  cam: {fileID: 4459864851310106424}
 --- !u!114 &4459864850019384740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,10 +194,10 @@ MonoBehaviour:
   crosshair: 1
   crosshairImage: {fileID: 21300000, guid: be4ce60e2c9768c44b9b10b9c5258045, type: 3}
   crosshairColor: {r: 1, g: 1, b: 1, a: 1}
-  enableZoom: 0
+  enableZoom: 1
   holdToZoom: 1
-  zoomKey: 324
-  zoomFOV: 30
+  zoomKey: 323
+  zoomFOV: 60
   zoomStepTime: 5
   playerCanMove: 1
   walkSpeed: 4
@@ -205,8 +208,9 @@ MonoBehaviour:
   sprintSpeed: 7
   sprintDuration: 5
   sprintCooldown: 2
-  sprintFOV: 100
+  sprintFOV: 110
   sprintFOVStepTime: 10
+  canSprint: 1
   useSprintBar: 1
   hideBarWhenFull: 1
   sprintBarBG: {fileID: 4459864851397454648}
@@ -494,8 +498,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0.01
+  far clip plane: 2000
   field of view: 60
   orthographic: 0
   orthographic size: 5
