@@ -12,6 +12,7 @@ public class ProjectileShooter : MonoBehaviour
     public uint ammo = 16;
     public float shootPower = 16;
     public GameObject cam;
+    public AudioClip shootSound;
 
     private float timeCharging = 0f;
     private FirstPersonController fpc;
@@ -31,6 +32,9 @@ public class ProjectileShooter : MonoBehaviour
                 {
                     timeCharging = 0f; // Resets charge to zero
                     if (!infiniteAmmo) ammo--; // consumes ammo if infiniteAmmo is false
+
+                    // Plays the shooting sound only if shootSound is not null
+                    if (shootSound != null) AudioSource.PlayClipAtPoint(shootSound, transform.position);
 
                     // Spawns projectile at player camera position
                     Transform camTransform = cam.transform;
