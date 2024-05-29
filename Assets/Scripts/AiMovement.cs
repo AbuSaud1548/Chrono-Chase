@@ -5,14 +5,14 @@ using UnityEngine.AI;
 
 public class AiMovement : MonoBehaviour
 {
-    public Transform PlayerMovement;
+    Transform PlayerMovement;
     NavMeshAgent Enemy;
     
     // Start is called before the first frame update
     void Start()
     {
         Enemy = GetComponent<NavMeshAgent>();
-       
+        PlayerMovement = GameObject.Find("FirstPersonController").transform;
     }
 
     // Update is called once per frame
