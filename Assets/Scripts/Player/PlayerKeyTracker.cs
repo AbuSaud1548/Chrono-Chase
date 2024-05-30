@@ -21,6 +21,11 @@ public class PlayerKeyTracker : MonoBehaviour
         numberOfKeys = Mathf.Clamp(numberOfKeys - 1, 0, int.MaxValue);
     }
 
+    public bool HasKey()
+    {
+        return numberOfKeys > 0;
+    }
+
     public bool HasEnoughKeys(int minKeyAmount)
     {
         return numberOfKeys >= minKeyAmount;
