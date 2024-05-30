@@ -1,14 +1,25 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerKeyTracker : MonoBehaviour
 {
     public int startingAmountOfKeys = 0; // initial starting amount of key
+    public GameObject KeyUIDisplay;
+    public GameObject KeyUICountDisplay;
 
     int numberOfKeys = 0; // Stores the number of keys with player
+    TextMeshProUGUI counterUI;
 
     void Start()
     {
         numberOfKeys = startingAmountOfKeys;
+        counterUI = KeyUICountDisplay.GetComponent<TextMeshProUGUI>();
+    }
+
+    void Update()
+    {
+        KeyUIDisplay.SetActive(HasKey());
+        if (counterUI != null) counterUI.text = "x" + GetKey();
     }
 
     public int GetKey()
