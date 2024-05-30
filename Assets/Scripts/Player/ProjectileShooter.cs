@@ -50,8 +50,6 @@ public class ProjectileShooter : MonoBehaviour
 
                 fpc.canSprint = !Input.GetKey(KeyCode.Mouse0); // Disables sprinting when charging up shooter
                 fpc.zoomFOV = Mathf.Lerp(fpc.fov, 60, timeCharging / chargeUpTime); // Changes FOV based on the current shooter charge
-
-                Debug.Log(timeCharging);
             }
         }
     }
