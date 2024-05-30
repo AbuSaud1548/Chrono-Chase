@@ -3,6 +3,7 @@ using UnityEngine;
 public class KeyScript : MonoBehaviour
 {
     public AudioClip pickupSound;
+    public GameObject keyModel;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -15,8 +16,17 @@ public class KeyScript : MonoBehaviour
                 pkt.AddKey();
                 if (pickupSound != null)
                     AudioSource.PlayClipAtPoint(pickupSound, transform.position);
-                Destroy(transform.gameObject);
+                Destroy(gameObject);
             }
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        if (keyModel != null)
+        {
+            keyModel.transform.localPosition = new Vector3(0, Mathf.Sin(Time.timeSinceLevelLoad * 2) / 64, 0);
+            keyModel.transform.localEulerAngles += new Vector3(0, -1, 0);
         }
     }
 }
