@@ -7,8 +7,9 @@ public class AiMovement : MonoBehaviour
 {
     Transform PlayerMovement;
     NavMeshAgent Enemy;
-    public Animator animator;  
-    public float closeDistance = 3.0f;  
+    public Animator animator;
+    public float closeDistance = 3.0f;
+    public float sightRange = 40.0f;
     private bool isClose = false;
     private bool isAnimating = false;
     private float attackTimer = 0;
@@ -24,12 +25,19 @@ public class AiMovement : MonoBehaviour
    
     void Update()
     {
-        if (!isAnimating)
+        float distanceToPlayer = Vector3.Distance(Enemy.transform.position, PlayerMovement.position);
+
+        if (distanceToPlayer < sightRange)
         {
             Enemy.destination = PlayerMovement.position;
+        }
+        else 
+        {
+            Enemy.destination = Enemy.transform.position;
+        }
 
-            
-            float distanceToPlayer = Vector3.Distance(Enemy.transform.position, PlayerMovement.position);
+        if (!isAnimating)
+        {
 
             isClose = distanceToPlayer < closeDistance;
 
