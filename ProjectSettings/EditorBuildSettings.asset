@@ -9,9 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenuScene.unity
     guid: c3a9e4b31c585a34590910a30ab19b01
   - enabled: 1
+    path: Assets/Scenes/About.unity
+    guid: dead0de35f6b64e469d595d40fdbfe6a
+  - enabled: 1
     path: Assets/Scenes/IntroCutScene.unity
     guid: 2210c38eff1a09f499f31dc4c978af92
   - enabled: 1
     path: Assets/Scenes/Stage 1 Egypt.unity
     guid: 577b6a07b862a274c808a1148ae7c224
+  - enabled: 1
+    path: Assets/Scenes/SecondCutScene.unity
+    guid: 4a3c52706070c8b4ba1909c8b7416ff1
   m_configObjects: {}
