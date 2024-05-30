@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4459864850019384741}
   - component: {fileID: 3559240940994190532}
   - component: {fileID: 5769887359101068087}
+  - component: {fileID: 834751535491237077}
   - component: {fileID: 4459864850019384740}
   m_Layer: 3
   m_Name: FirstPersonController
@@ -173,6 +174,19 @@ MonoBehaviour:
   shootPower: 24
   cam: {fileID: 4459864851310106424}
   shootSound: {fileID: 0}
+--- !u!114 &834751535491237077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459864850019384750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139ffe1bdce1b8141ade5d9d4e591c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingAmountOfkeys: 0
 --- !u!114 &4459864850019384740
 MonoBehaviour:
   m_ObjectHideFlags: 0
