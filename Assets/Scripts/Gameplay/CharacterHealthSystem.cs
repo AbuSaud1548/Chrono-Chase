@@ -11,9 +11,9 @@ public class CharacterHealthSystem : MonoBehaviour
     public float currentHealth { get { return health; } set { health = Mathf.Clamp(value, 0, maxHealth); } } // Character's current health
     public float invFrames { get; set; } // Stores how much time the character has left to be immune to damage
 
+    private float health = 0; // private health only accessible here
 
-    private float health = 0; // private health only accessable here
-
+    public AudioClip damageSound; // Reference to the damage sound clip
 
     void Awake()
     {
@@ -23,7 +23,7 @@ public class CharacterHealthSystem : MonoBehaviour
     void Update()
     {
         invFrames -= Time.deltaTime; // Slowly drains invisibility frame
-        invFrames = invFrames < 0 ? 0 : invFrames; // Prevents invisibility frame to be less than zero
+        invFrames = invFrames < 0 ? 0 : invFrames; // Prevents invisibility frame from being less than zero
     }
 
     /// <summary>
@@ -37,6 +37,12 @@ public class CharacterHealthSystem : MonoBehaviour
         {
             currentHealth -= amount;
             this.invFrames = invFrames;
+
+            // Play the damage sound
+            if (damageSound != null)
+            {
+                AudioSource.PlayClipAtPoint(damageSound, transform.position);
+            }
         }
     }
 
