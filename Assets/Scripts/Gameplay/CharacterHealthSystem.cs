@@ -11,6 +11,8 @@ public class CharacterHealthSystem : MonoBehaviour
     public float currentHealth { get { return health; } set { health = Mathf.Clamp(value, 0, maxHealth); } } // Character's current health
     public float invFrames { get; set; } // Stores how much time the character has left to be immune to damage
 
+    public bool IsAlive { get { return health > 0; } } // Returns whether the character is alive or not
+
     private float health = 0; // private health only accessible here
 
     public AudioClip damageSound; // Reference to the damage sound clip
