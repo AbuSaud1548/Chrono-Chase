@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  damageSound: {fileID: 8300000, guid: cb38c330558a734458004b8fd892e4ed, type: 3}
 --- !u!114 &5769887359101068087
 MonoBehaviour:
   m_ObjectHideFlags: 0
