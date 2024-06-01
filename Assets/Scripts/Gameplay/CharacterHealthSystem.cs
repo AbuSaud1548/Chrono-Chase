@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// The Script can be applied to all characters we want to have a health system, including player
@@ -14,12 +15,14 @@ public class CharacterHealthSystem : MonoBehaviour
     public bool IsAlive { get { return health > 0; } } // Returns whether the character is alive or not
 
     private float health = 0; // private health only accessible here
-
+    private Animator animator; // Reference to the Animator component
     public AudioClip damageSound; // Reference to the damage sound clip
+    private bool isDead = false;
 
     void Awake()
     {
         currentHealth = maxHealth; // Sets the character's current health to max
+        animator = GetComponent<Animator>(); // Get the Animator component
     }
 
     void Update()
@@ -35,7 +38,7 @@ public class CharacterHealthSystem : MonoBehaviour
     /// <param name="invFrames"></param>
     public void DealDamage(float amount, float invFrames = 0.2f)
     {
-        if (this.invFrames <= 0)
+        if (this.invFrames <= 0 && !isDead)
         {
             currentHealth -= amount;
             this.invFrames = invFrames;
@@ -44,6 +47,20 @@ public class CharacterHealthSystem : MonoBehaviour
             if (damageSound != null)
             {
                 AudioSource.PlayClipAtPoint(damageSound, transform.position);
+            }
+
+            // Check if health has dropped to 0 or below and handle death
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                // Trigger the hit animation only if not dying
+                if (animator != null)
+                {
+                    animator.SetTrigger("Hit");
+                }
             }
         }
     }
@@ -54,6 +71,53 @@ public class CharacterHealthSystem : MonoBehaviour
     /// <param name="amount"></param>
     public void Heal(float amount)
     {
-        currentHealth += amount;
+        if (!isDead)
+        {
+            currentHealth += amount;
+        }
+    }
+
+    private void Die()
+    {
+        isDead = true;
+
+        // Trigger the death animation
+        if (animator != null)
+        {
+            animator.SetTrigger("Die");
+        }
+
+        // Disable enemy functionality
+        DisableEnemy();
+    }
+
+    private void DisableEnemy()
+    {
+        // Disable the NavMeshAgent to stop movement
+        if (GetComponent<NavMeshAgent>() != null)
+        {
+            GetComponent<NavMeshAgent>().enabled = false;
+        }
+
+        // Optionally, disable AI scripts
+        AiMovement aiMovement = GetComponent<AiMovement>();
+        if (aiMovement != null)
+        {
+            aiMovement.enabled = false;
+        }
+
+        // Disable other components as necessary, but keep the collider enabled
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+        {
+            collider.enabled = true;
+        }
+
+        // Freeze the Rigidbody, if it exists, to prevent falling
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+        }
     }
 }
