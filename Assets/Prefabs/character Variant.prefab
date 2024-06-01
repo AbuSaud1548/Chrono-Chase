@@ -279,6 +279,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   closeDistance: 3
   sightRange: 40
+  attackCooldown: 3
 --- !u!114 &4105171812274214650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  damageSound: {fileID: 0}
 --- !u!1001 &1999441762514761500
 PrefabInstance:
   m_ObjectHideFlags: 0
