@@ -7,11 +7,14 @@ public class SwordCollider : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("Sword hit " + other.name);
-        CharacterHealthSystem healthSystem = other.GetComponent<CharacterHealthSystem>();
-        if (healthSystem != null)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Debug.Log("Dealing damage to " + other.name);
-            healthSystem.DealDamage(damageAmount);
+            CharacterHealthSystem healthSystem = other.GetComponent<CharacterHealthSystem>();
+            if (healthSystem != null)
+            {
+                Debug.Log("Dealing damage to " + other.name);
+                healthSystem.DealDamage(damageAmount);
+            } 
         }
     }
 
