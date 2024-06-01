@@ -80,6 +80,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 01492836b7a1a0f4fbfb6a3846d3159b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4520003999466049159}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 01492836b7a1a0f4fbfb6a3846d3159b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7169812651384193736}
   m_SourcePrefab: {fileID: 100100000, guid: 01492836b7a1a0f4fbfb6a3846d3159b, type: 3}
 --- !u!1 &1103463635959537099 stripped
 GameObject:
@@ -119,6 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51401ad7749af6447aac539892386b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  closeDistance: 3
+  sightRange: 40
+  attackCooldown: 2
 --- !u!195 &3575858844573582544
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -164,3 +171,17 @@ CapsuleCollider:
   m_Height: 2.2
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &7169812651384193736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103463635959537099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fffcc65f8d9ab74aab3a0e0399f905c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  damageSound: {fileID: 0}
