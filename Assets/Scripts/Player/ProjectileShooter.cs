@@ -54,7 +54,7 @@ public class ProjectileShooter : MonoBehaviour
             Transform camTransform = cam.transform;
             Vector3 spawnPosition = camTransform.position + (camTransform.forward * 1.5f); // Spawn bullet slightly in front of the player
             GameObject instProjectile = Instantiate(projectilePrefab, spawnPosition, camTransform.rotation);
-            instProjectile.layer = 1 << LayerMask.NameToLayer("PlayerProjectile"); // Set the projectile's layer
+            instProjectile.layer = LayerMask.NameToLayer("Projectile"); // Set the projectile's layer
 
             Rigidbody rb;
             if (instProjectile.TryGetComponent<Rigidbody>(out rb))

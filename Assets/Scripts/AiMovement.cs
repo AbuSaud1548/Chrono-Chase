@@ -57,7 +57,6 @@ public class AiMovement : MonoBehaviour
 
         if (distanceToPlayer < sightRange && distanceToPlayer > closeDistance)
         {
-            Debug.Log("Chasing Player");
             ResumeMovement();
             Enemy.destination = PlayerMovement.position;
             animator.SetBool("isWalking", true); // Trigger walking animation
@@ -67,13 +66,11 @@ public class AiMovement : MonoBehaviour
         {
             if (!animator.GetBool("isAttacking"))
             {
-                Debug.Log("Preparing to Attack");
                 StartCoroutine(AttackRoutine());
             }
         }
         else
         {
-            Debug.Log("Player out of range");
             StopMovement(); // Stop the enemy if out of sight range
         }
     }
