@@ -7,7 +7,7 @@ public class AiMovement : MonoBehaviour
     Transform PlayerMovement;
     NavMeshAgent Enemy;
     public Animator animator;
-    public float closeDistance = 1.5f;
+    public float closeDistance = 1f;
     public float sightRange = 40.0f;
     public float attackCooldown = 2.0f; // Time between attacks
     private bool isAnimating = false;
