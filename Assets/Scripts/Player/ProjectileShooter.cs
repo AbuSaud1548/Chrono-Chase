@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileShooter : MonoBehaviour
@@ -38,7 +37,7 @@ public class ProjectileShooter : MonoBehaviour
 
                     // Spawns projectile at player camera position
                     Transform camTransform = cam.transform;
-                    GameObject instProjectile = Instantiate(projectilePrefab, camTransform.position + (camTransform.forward * gameObject.GetComponent<CapsuleCollider>().radius), new Quaternion());
+                    GameObject instProjectile = Instantiate(projectilePrefab, camTransform.position + (camTransform.forward * gameObject.GetComponent<CapsuleCollider>().radius), Quaternion.identity);
                     Rigidbody rb;
                     if (instProjectile.TryGetComponent<Rigidbody>(out rb)) // if projectile has rigid body, it will cause the projectile to shoot and move in camera's direction
                         rb.velocity = camTransform.forward * shootPower;
