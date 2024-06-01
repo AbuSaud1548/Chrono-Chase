@@ -19,6 +19,8 @@ public class CharacterHealthSystem : MonoBehaviour
     public AudioClip damageSound; // Reference to the damage sound clip
     private bool isDead = false;
 
+    public bool isEnemy = false; // Flag to determine if this character is an enemy
+
     void Awake()
     {
         currentHealth = maxHealth; // Sets the character's current health to max
@@ -85,6 +87,12 @@ public class CharacterHealthSystem : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Die");
+        }
+
+        // Notify the ScoreManager if this character is an enemy
+        if (isEnemy)
+        {
+            ScoreManager.instance.IncrementScore();
         }
 
         // Disable enemy functionality

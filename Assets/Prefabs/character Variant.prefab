@@ -294,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damageSound: {fileID: 0}
+  isEnemy: 1
 --- !u!1001 &1999441762514761500
 PrefabInstance:
   m_ObjectHideFlags: 0
