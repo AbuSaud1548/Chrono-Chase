@@ -26,6 +26,7 @@ public class AiMovement : MonoBehaviour
             projectileShooter = GetComponentInChildren<ProjectileShooter>();
             if (projectileShooter == null)
             {
+                // HEY! PROJECTILE SHOOTER IS ONLY MADE FOR THE PLAYER NOT THE ENEMIES!
                 Debug.LogError("ProjectileShooter component not found on ranged enemy or its children.");
             }
         }
