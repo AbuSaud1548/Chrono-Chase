@@ -66,9 +66,10 @@ public class PlayerKeyTracker : MonoBehaviour
     /// Will remove a set amount of keys only if there is enough of it
     /// </summary>
     /// <param name="amountToConsume"></param>
-    public void ConsumeKey(int amountToConsume)
+    public bool ConsumeKey(int amountToConsume)
     {
-        if (HasEnoughKeys(amountToConsume))
-            numberOfKeys -= amountToConsume;
+        bool enoughKeys = HasEnoughKeys(amountToConsume);
+        if (enoughKeys) numberOfKeys -= amountToConsume;
+        return enoughKeys;
     }
 }
