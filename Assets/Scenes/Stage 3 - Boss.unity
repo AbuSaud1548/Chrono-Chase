@@ -806,7 +806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d8798475b3e184293d7ce45ac71def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarGUI: {fileID: 765677769}
+  healthBarGUI: {fileID: 801693162}
   healthSystem: {fileID: 765677778}
 --- !u!1001 &776516177
 PrefabInstance:
