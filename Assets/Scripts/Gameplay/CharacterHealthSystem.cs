@@ -1,9 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-/// <summary>
-/// The Script can be applied to all characters we want to have a health system, including player
-/// </summary>
 public class CharacterHealthSystem : MonoBehaviour
 {
     [SerializeField]
@@ -33,11 +31,6 @@ public class CharacterHealthSystem : MonoBehaviour
         invFrames = invFrames < 0 ? 0 : invFrames; // Prevents invisibility frame from being less than zero
     }
 
-    /// <summary>
-    /// Will deal damage by amount only if invisibility frames runs out (optional parameter: sets invFrames)
-    /// </summary>
-    /// <param name="amount"></param>
-    /// <param name="invFrames"></param>
     public void DealDamage(float amount, float invFrames = 0.2f)
     {
         if (this.invFrames <= 0 && !isDead)
@@ -67,10 +60,6 @@ public class CharacterHealthSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Heals character by an amount
-    /// </summary>
-    /// <param name="amount"></param>
     public void Heal(float amount)
     {
         if (!isDead)
@@ -95,8 +84,9 @@ public class CharacterHealthSystem : MonoBehaviour
             ScoreManager.instance.IncrementScore();
         }
 
-        // Disable enemy functionality
+        // Disable enemy functionality and start despawn coroutine
         DisableEnemy();
+        StartCoroutine(DespawnAfterDelay(5f));
     }
 
     private void DisableEnemy()
@@ -114,11 +104,11 @@ public class CharacterHealthSystem : MonoBehaviour
             aiMovement.enabled = false;
         }
 
-        // Disable other components as necessary, but keep the collider enabled
+        // Disable other components as necessary
         Collider collider = GetComponent<Collider>();
         if (collider != null)
         {
-            collider.enabled = true;
+            collider.enabled = false;
         }
 
         // Freeze the Rigidbody, if it exists, to prevent falling
@@ -127,5 +117,11 @@ public class CharacterHealthSystem : MonoBehaviour
         {
             rb.isKinematic = true;
         }
+    }
+
+    private IEnumerator DespawnAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 }
