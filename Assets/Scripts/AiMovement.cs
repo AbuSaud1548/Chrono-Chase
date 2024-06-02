@@ -10,6 +10,7 @@ public class AiMovement : MonoBehaviour
     public float closeDistance = 1f;
     public float sightRange = 40.0f;
     public float attackCooldown = 2.0f; // Time between attacks
+    public float baseOffset = 0.5f;
     private bool isAnimating = false;
     private SwordCollider swordCollider;
     private EnemyShooter enemyShooter;
@@ -46,7 +47,7 @@ public class AiMovement : MonoBehaviour
         Enemy.speed = 3.5f;
         Enemy.acceleration = 8.0f;
         Enemy.angularSpeed = 120.0f;
-        Enemy.baseOffset = 0.5f; // Adjust based on your character's height
+        Enemy.baseOffset = baseOffset; // Adjust based on your character's height
 
         // Ensure Animator root motion is disabled
         animator.applyRootMotion = false;
