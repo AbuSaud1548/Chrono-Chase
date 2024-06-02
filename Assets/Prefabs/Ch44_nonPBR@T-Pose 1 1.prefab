@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  damageSound: {fileID: 0}
+  damageSound: {fileID: 8300000, guid: 5949349207c7b564c97f946f0dd47d79, type: 3}
   isEnemy: 1
 --- !u!114 &3889199412131119216
 MonoBehaviour:

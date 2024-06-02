@@ -281,7 +281,7 @@ MonoBehaviour:
   sightRange: 40
   attackCooldown: 3
   baseOffset: 0
-  enemySpeed: 3.5
+  enemySpeed: 6
   isRangedEnemy: 0
 --- !u!114 &4105171812274214650
 MonoBehaviour:
