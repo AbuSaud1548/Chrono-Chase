@@ -5,30 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class CutScene1Transition : MonoBehaviour
 {
-        public float transitionTime = 10f; // Time in seconds for cut scene to finish
+    public float transitionTime = 10f; // Time in seconds for cut scene to finish
+    public string nextLevelName;
 
-        private float timer = 0f;
+    private float timer = 0f;
 
-        private void Update()
+    private void Update()
+    {
+        timer += Time.deltaTime;
+
+        if (timer >= transitionTime)
         {
-            timer += Time.deltaTime;
-
-            if (timer >= transitionTime)
-            {
-                LoadNextScene();
-            }
-        }
-
-        private void LoadNextScene()
-        {
-        // Perform the scene transition
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // check active scene and then make transition to next scene in the build
-
-        if (SceneManager.GetActiveScene().buildIndex == 11)
-        {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(nextLevelName);
         }
     }
     
-    }
+}
 
