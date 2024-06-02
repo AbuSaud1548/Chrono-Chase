@@ -280,6 +280,8 @@ MonoBehaviour:
   closeDistance: 3
   sightRange: 40
   attackCooldown: 3
+  baseOffset: 0
+  isRangedEnemy: 0
 --- !u!114 &4105171812274214650
 MonoBehaviour:
   m_ObjectHideFlags: 0
