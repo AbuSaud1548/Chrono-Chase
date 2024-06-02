@@ -38,46 +38,49 @@ public class ProjectileShooter : MonoBehaviour
 
     void Update()
     {
-        if (cam != null && projectilePrefab != null && !isReloading)
+        if (Time.timeScale != 0)
         {
-            if ((!requiresChargeUp && (isAutomatic ? Input.GetKey(KeyCode.Mouse0) && automaticTimer <= 0 : Input.GetKeyDown(KeyCode.Mouse0))) || (requiresChargeUp && timeCharging >= chargeUpTime && Input.GetKeyUp(KeyCode.Mouse0)))
+            if (cam != null && projectilePrefab != null && !isReloading)
             {
-                if (isAutomatic) automaticTimer = automaticTime;
-                Shoot();
-            }
-            if (requiresChargeUp)
-            {
-                if (Input.GetKey(KeyCode.Mouse0)) timeCharging += Time.deltaTime;
+                if ((!requiresChargeUp && (isAutomatic ? Input.GetKey(KeyCode.Mouse0) && automaticTimer <= 0 : Input.GetKeyDown(KeyCode.Mouse0))) || (requiresChargeUp && timeCharging >= chargeUpTime && Input.GetKeyUp(KeyCode.Mouse0)))
+                {
+                    if (isAutomatic) automaticTimer = automaticTime;
+                    Shoot();
+                }
+                if (requiresChargeUp)
+                {
+                    if (Input.GetKey(KeyCode.Mouse0)) timeCharging += Time.deltaTime;
 
-                fpc.canSprint = !Input.GetKey(KeyCode.Mouse0);
-                fpc.zoomFOV = Mathf.Lerp(fpc.fov, 60, timeCharging / chargeUpTime);
-            }
-        }
-
-        if (isAutomatic)
-        {
-            automaticTimer -= Time.deltaTime;
-            automaticTimer = automaticTimer < 0 ? 0 : automaticTimer;
-        }
-
-        // You can only reload if ammo is infinite
-        if (!infiniteAmmo)
-        {
-            if (Input.GetKeyDown(KeyCode.R) && !isReloading && currentAmmo < maxAmmo) // Reload button that will start the reloading process
-            {
-                isReloading = true;
-                reloadTimer = 0;
-
-                if (reloadSound != null) AudioSource.PlayClipAtPoint(reloadSound, transform.position); // Plays reload sound
+                    fpc.canSprint = !Input.GetKey(KeyCode.Mouse0);
+                    fpc.zoomFOV = Mathf.Lerp(fpc.fov, 60, timeCharging / chargeUpTime);
+                }
             }
 
-            if (isReloading) reloadTimer += Time.deltaTime; // Reload timer
-
-            if (reloadTimer >= reloadTime) // Will refill ammo when reload timer reaches the reload time
+            if (isAutomatic)
             {
-                isReloading = false;
-                currentAmmo = maxAmmo;
-                reloadTimer = 0;
+                automaticTimer -= Time.deltaTime;
+                automaticTimer = automaticTimer < 0 ? 0 : automaticTimer;
+            }
+
+            // You can only reload if ammo is infinite
+            if (!infiniteAmmo)
+            {
+                if (Input.GetKeyDown(KeyCode.R) && !isReloading && currentAmmo < maxAmmo) // Reload button that will start the reloading process
+                {
+                    isReloading = true;
+                    reloadTimer = 0;
+
+                    if (reloadSound != null) AudioSource.PlayClipAtPoint(reloadSound, transform.position); // Plays reload sound
+                }
+
+                if (isReloading) reloadTimer += Time.deltaTime; // Reload timer
+
+                if (reloadTimer >= reloadTime) // Will refill ammo when reload timer reaches the reload time
+                {
+                    isReloading = false;
+                    currentAmmo = maxAmmo;
+                    reloadTimer = 0;
+                }
             }
         }
     }

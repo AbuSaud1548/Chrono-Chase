@@ -705,12 +705,12 @@ MonoBehaviour:
   zoomFOV: 60
   zoomStepTime: 5
   playerCanMove: 1
-  walkSpeed: 4
+  walkSpeed: 6
   maxVelocityChange: 10
   enableSprint: 1
   unlimitedSprint: 0
   sprintKey: 304
-  sprintSpeed: 7
+  sprintSpeed: 12
   sprintDuration: 10
   sprintCooldown: 3
   sprintFOV: 110
