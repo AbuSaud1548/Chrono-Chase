@@ -23,6 +23,12 @@ public class CutScene1Transition : MonoBehaviour
         {
         // Perform the scene transition
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // check active scene and then make transition to next scene in the build
+
+        if (SceneManager.GetActiveScene().buildIndex == 11)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
+    
     }
 
