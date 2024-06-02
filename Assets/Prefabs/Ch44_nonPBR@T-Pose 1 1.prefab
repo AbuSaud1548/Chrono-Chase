@@ -549,6 +549,7 @@ MonoBehaviour:
   closeDistance: 6
   sightRange: 40
   attackCooldown: 2
+  baseOffset: 0.3
   isRangedEnemy: 1
 --- !u!195 &5449195822454669529
 NavMeshAgent:
