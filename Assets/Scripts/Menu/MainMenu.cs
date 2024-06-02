@@ -6,7 +6,14 @@ using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour
 {
-   public void play()
+
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void play()
     {
        
         SceneManager.LoadScene("IntroCutScene");
