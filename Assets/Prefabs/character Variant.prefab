@@ -276,10 +276,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51401ad7749af6447aac539892386b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 2937446935220368318}
   closeDistance: 3
   sightRange: 40
   attackCooldown: 3
+  baseOffset: 0
+  isRangedEnemy: 0
 --- !u!114 &4105171812274214650
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class AiMovement : MonoBehaviour
     public float closeDistance = 1f;
     public float sightRange = 40.0f;
     public float attackCooldown = 2.0f; // Time between attacks
+    public float baseOffset = 0.5f;
     private bool isAnimating = false;
     private SwordCollider swordCollider;
     private EnemyShooter enemyShooter;
@@ -26,7 +27,7 @@ public class AiMovement : MonoBehaviour
             enemyShooter = GetComponentInChildren<EnemyShooter>();
             if (enemyShooter == null)
             {
-                Debug.LogError("EnemyShooter component not found on ranged enemy or its children.");
+               // Debug.LogError("EnemyShooter component not found on ranged enemy or its children.");
             }
         }
         else
@@ -34,7 +35,7 @@ public class AiMovement : MonoBehaviour
             swordCollider = GetComponentInChildren<SwordCollider>();
             if (swordCollider == null)
             {
-                Debug.LogError("SwordCollider component not found on melee enemy or its children.");
+               // Debug.LogError("SwordCollider component not found on melee enemy or its children.");
             }
             else
             {
@@ -46,7 +47,7 @@ public class AiMovement : MonoBehaviour
         Enemy.speed = 3.5f;
         Enemy.acceleration = 8.0f;
         Enemy.angularSpeed = 120.0f;
-        Enemy.baseOffset = 0.5f; // Adjust based on your character's height
+        Enemy.baseOffset = baseOffset; // Adjust based on your character's height
 
         // Ensure Animator root motion is disabled
         animator.applyRootMotion = false;
@@ -54,29 +55,30 @@ public class AiMovement : MonoBehaviour
 
     void Update()
     {
-        if (!isAnimating)
-        {
-            EvaluateDistanceToPlayer();
-        }
+        EvaluateDistanceToPlayer();
     }
 
     void EvaluateDistanceToPlayer()
     {
         float distanceToPlayer = Vector3.Distance(Enemy.transform.position, PlayerMovement.position);
-        Debug.Log("Distance to player: " + distanceToPlayer); // Debug log
+      // Debug.Log("Distance to player: " + distanceToPlayer); // Debug log
 
-        if (distanceToPlayer < sightRange && distanceToPlayer > closeDistance)
+        if (distanceToPlayer < sightRange)
         {
-            ResumeMovement();
-            Enemy.destination = PlayerMovement.position;
-            Debug.Log("Setting destination to player position: " + PlayerMovement.position); // Debug log
-            animator.SetBool("isWalking", true); // Trigger walking animation
-        }
-        else if (distanceToPlayer <= closeDistance)
-        {
-            if (!isAnimating)
+            if (distanceToPlayer > closeDistance)
             {
-                StartCoroutine(AttackRoutine());
+                ResumeMovement();
+                Enemy.destination = PlayerMovement.position;
+               // Debug.Log("Setting destination to player position: " + PlayerMovement.position); // Debug log
+                animator.SetBool("isWalking", true); // Trigger walking animation
+                animator.SetBool("isAttacking", false); // Ensure attack animation is not playing
+            }
+            else
+            {
+                if (!isAnimating)
+                {
+                    StartCoroutine(AttackRoutine());
+                }
             }
         }
         else
@@ -100,12 +102,12 @@ public class AiMovement : MonoBehaviour
         {
             if (enemyShooter != null)
             {
-                Debug.Log("Calling Shoot method on enemyShooter"); // Debug log
+               // Debug.Log("Calling Shoot method on enemyShooter"); // Debug log
                 enemyShooter.Shoot();
             }
             else
             {
-                Debug.LogError("EnemyShooter component is null. Cannot shoot.");
+               // Debug.LogError("EnemyShooter component is null. Cannot shoot.");
             }
         }
         else
@@ -118,15 +120,13 @@ public class AiMovement : MonoBehaviour
             }
             else
             {
-                Debug.LogError("SwordCollider component is null. Cannot attack.");
+               // Debug.LogError("SwordCollider component is null. Cannot attack.");
             }
         }
 
         yield return new WaitForSeconds(attackCooldown);
 
         isAnimating = false;
-
-        EvaluateDistanceToPlayer();
     }
 
     void StopMovement()

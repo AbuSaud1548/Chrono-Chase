@@ -34,6 +34,6 @@ public class BossDamage : MonoBehaviour
     private void Die()
     {
         // Perform any necessary actions when the character dies
-        Debug.Log("Character has died!");
+        
     }
 }
