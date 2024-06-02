@@ -9,16 +9,32 @@ public class MainMenu : MonoBehaviour
    public void play()
     {
        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        SceneManager.LoadScene("IntroCutScene");
     }
 
     public void About()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("About");
     }
     public void Back()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainMenuScene");
+    }
+    public void BackToCredit1()
+    {
+        SceneManager.LoadScene("Credits1");
+    }
+    public void NextToCredit2()
+    {
+        SceneManager.LoadScene("Credits2");
+    }
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits1");
+    }
+    public void instructions()
+    {
+        SceneManager.LoadScene("Instructions");
     }
     public void Exit()
     {
