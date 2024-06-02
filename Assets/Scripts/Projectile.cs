@@ -13,7 +13,6 @@ public class Projectile : MonoBehaviour
         {
             // Deal damage to the object we hit
             healthSystem.DealDamage(damageAmount);
-            Debug.Log(damageAmount);
         }
 
         // Destroy the projectile after it hits something
