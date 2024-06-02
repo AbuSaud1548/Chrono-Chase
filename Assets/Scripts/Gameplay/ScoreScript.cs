@@ -1,11 +1,16 @@
 using UnityEngine;
 using TMPro;
+using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance; // Singleton instance for easy access
 
     public TextMeshProUGUI scoreText; // Reference to the TextMeshProUGUI component
+    public GameObject panel;
+    public string[] SceneBlacklist;
+
     private int score = 0; // Variable to store the score
 
     void Awake()
@@ -20,6 +25,11 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void Update()
+    {
+        panel.SetActive(!SceneBlacklist.Contains(SceneManager.GetActiveScene().name));
     }
 
     // Method to increment the score

@@ -9,6 +9,9 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        var sm = GameObject.Find("Score Manager");
+        if (sm != null ) Destroy(sm);
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }

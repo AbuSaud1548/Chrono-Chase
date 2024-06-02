@@ -83,6 +83,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 7462757981849760391}
+  panel: {fileID: 4314234248849129864}
+  SceneBlacklist:
+  - IntroCutScene
+  - SecondCutScene
+  - ThirdCutScene
+  - FinalScene
 --- !u!1 &6074932454137811364
 GameObject:
   m_ObjectHideFlags: 0
