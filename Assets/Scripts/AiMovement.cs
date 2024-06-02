@@ -48,16 +48,16 @@ public class AiMovement : MonoBehaviour
         Enemy.angularSpeed = 120.0f;
         Enemy.baseOffset = 0.5f; // Adjust based on your character's height
 
+        // Disable automatic rotation
+        Enemy.updateRotation = false;
+
         // Ensure Animator root motion is disabled
         animator.applyRootMotion = false;
     }
 
     void Update()
     {
-        if (!isAnimating)
-        {
-            EvaluateDistanceToPlayer();
-        }
+        EvaluateDistanceToPlayer();
     }
 
     void EvaluateDistanceToPlayer()
@@ -65,18 +65,24 @@ public class AiMovement : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(Enemy.transform.position, PlayerMovement.position);
         Debug.Log("Distance to player: " + distanceToPlayer); // Debug log
 
-        if (distanceToPlayer < sightRange && distanceToPlayer > closeDistance)
+        if (distanceToPlayer < sightRange)
         {
-            ResumeMovement();
-            Enemy.destination = PlayerMovement.position;
-            Debug.Log("Setting destination to player position: " + PlayerMovement.position); // Debug log
-            animator.SetBool("isWalking", true); // Trigger walking animation
-        }
-        else if (distanceToPlayer <= closeDistance)
-        {
-            if (!isAnimating)
+            if (distanceToPlayer > closeDistance)
             {
-                StartCoroutine(AttackRoutine());
+                ResumeMovement();
+                Enemy.destination = PlayerMovement.position;
+                RotateTowards(PlayerMovement.position);
+                Debug.Log("Setting destination to player position: " + PlayerMovement.position); // Debug log
+                animator.SetBool("isWalking", true); // Trigger walking animation
+                animator.SetBool("isAttacking", false); // Ensure attack animation is not playing
+            }
+            else
+            {
+                if (!isAnimating)
+                {
+                    StartCoroutine(AttackRoutine());
+                }
+                RotateTowards(PlayerMovement.position); // Ensure rotation towards the player during attack
             }
         }
         else
@@ -125,8 +131,13 @@ public class AiMovement : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
 
         isAnimating = false;
+    }
 
-        EvaluateDistanceToPlayer();
+    void RotateTowards(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * Enemy.angularSpeed);
     }
 
     void StopMovement()
