@@ -12,7 +12,7 @@ public class AiMovement : MonoBehaviour
     public float attackCooldown = 2.0f; // Time between attacks
     private bool isAnimating = false;
     private SwordCollider swordCollider;
-    private ProjectileShooter projectileShooter;
+    private EnemyShooter enemyShooter;
     public bool isRangedEnemy = false; // Flag to differentiate between melee and ranged enemies
 
     void Start()
@@ -23,11 +23,10 @@ public class AiMovement : MonoBehaviour
 
         if (isRangedEnemy)
         {
-            projectileShooter = GetComponentInChildren<ProjectileShooter>();
-            if (projectileShooter == null)
+            enemyShooter = GetComponentInChildren<EnemyShooter>();
+            if (enemyShooter == null)
             {
-                // HEY! PROJECTILE SHOOTER IS ONLY MADE FOR THE PLAYER NOT THE ENEMIES!
-                Debug.LogError("ProjectileShooter component not found on ranged enemy or its children.");
+                Debug.LogError("EnemyShooter component not found on ranged enemy or its children.");
             }
         }
         else
@@ -42,6 +41,15 @@ public class AiMovement : MonoBehaviour
                 swordCollider.DisableCollider(); // Ensure the collider starts disabled
             }
         }
+
+        // Adjust NavMeshAgent settings if necessary
+        Enemy.speed = 3.5f;
+        Enemy.acceleration = 8.0f;
+        Enemy.angularSpeed = 120.0f;
+        Enemy.baseOffset = 0.5f; // Adjust based on your character's height
+
+        // Ensure Animator root motion is disabled
+        animator.applyRootMotion = false;
     }
 
     void Update()
@@ -55,17 +63,18 @@ public class AiMovement : MonoBehaviour
     void EvaluateDistanceToPlayer()
     {
         float distanceToPlayer = Vector3.Distance(Enemy.transform.position, PlayerMovement.position);
+        Debug.Log("Distance to player: " + distanceToPlayer); // Debug log
 
         if (distanceToPlayer < sightRange && distanceToPlayer > closeDistance)
         {
             ResumeMovement();
             Enemy.destination = PlayerMovement.position;
+            Debug.Log("Setting destination to player position: " + PlayerMovement.position); // Debug log
             animator.SetBool("isWalking", true); // Trigger walking animation
-            animator.SetBool("isAttacking", false); // Ensure attack animation is not playing
         }
         else if (distanceToPlayer <= closeDistance)
         {
-            if (!animator.GetBool("isAttacking"))
+            if (!isAnimating)
             {
                 StartCoroutine(AttackRoutine());
             }
@@ -81,18 +90,22 @@ public class AiMovement : MonoBehaviour
         isAnimating = true;
         StopMovement(); // Stop the enemy's movement
 
-        animator.SetBool("isAttacking", true);
         animator.SetBool("isWalking", false);
+        animator.SetTrigger("isAttacking"); // Set attack trigger
+
+        // Wait for 0.1 seconds before shooting
+        yield return new WaitForSeconds(0.1f);
 
         if (isRangedEnemy)
         {
-            if (projectileShooter != null)
+            if (enemyShooter != null)
             {
-                projectileShooter.Shoot();
+                Debug.Log("Calling Shoot method on enemyShooter"); // Debug log
+                enemyShooter.Shoot();
             }
             else
             {
-                Debug.LogError("ProjectileShooter component is null. Cannot shoot.");
+                Debug.LogError("EnemyShooter component is null. Cannot shoot.");
             }
         }
         else
