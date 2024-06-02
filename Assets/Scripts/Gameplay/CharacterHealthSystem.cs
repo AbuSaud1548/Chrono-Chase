@@ -83,6 +83,10 @@ public class CharacterHealthSystem : MonoBehaviour
         {
             ScoreManager.instance.IncrementScore();
         }
+        else
+        {
+            ScoreManager.instance.ResetScore();
+        }
 
         // Disable enemy functionality and start despawn coroutine
         DisableEnemy();
