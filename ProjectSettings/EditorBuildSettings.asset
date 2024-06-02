@@ -44,4 +44,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage 3 - Boss.unity
     guid: 12e8a036b87b72c4b8c5af45bafec6f5
+  - enabled: 1
+    path: Assets/Scenes/ScenesForCutScenes/ThirdCutScene.unity
+    guid: 64d3043cc2fbc1a4bbe32c2b130dae6e
+  - enabled: 1
+    path: Assets/Scenes/ScenesForCutScenes/FinalScene.unity
+    guid: 9d8ccc55ccc33a64db9fc8e80ba7fa52
   m_configObjects: {}
