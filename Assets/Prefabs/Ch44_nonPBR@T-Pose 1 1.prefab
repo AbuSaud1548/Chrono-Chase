@@ -546,8 +546,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8639668713060593670}
-  closeDistance: 6
-  sightRange: 40
+  closeDistance: 12
+  sightRange: 50
   attackCooldown: 2
   baseOffset: 0.3
   enemySpeed: 3.5
@@ -675,5 +675,5 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3628135281450721318, guid: cf957b4ed1cbe124abac918820f3a5ed, type: 3}
   bulletSpawnPoint: {fileID: 147314945646064235}
   shootSfx: {fileID: 8300000, guid: aa7a32f6ad4e8914f86ddf2378419028, type: 3}
-  bulletSpeed: 20
+  bulletSpeed: 40
   attackCooldown: 2
