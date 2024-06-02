@@ -10,7 +10,6 @@ public class AiMovement : MonoBehaviour
     public float closeDistance = 1f;
     public float sightRange = 40.0f;
     public float attackCooldown = 2.0f; // Time between attacks
-    public float baseOffset = 0.5f;
     private bool isAnimating = false;
     private SwordCollider swordCollider;
     private EnemyShooter enemyShooter;
@@ -27,7 +26,7 @@ public class AiMovement : MonoBehaviour
             enemyShooter = GetComponentInChildren<EnemyShooter>();
             if (enemyShooter == null)
             {
-                Debug.LogError("EnemyShooter component not found on ranged enemy or its children.");
+               // Debug.LogError("EnemyShooter component not found on ranged enemy or its children.");
             }
         }
         else
@@ -35,7 +34,7 @@ public class AiMovement : MonoBehaviour
             swordCollider = GetComponentInChildren<SwordCollider>();
             if (swordCollider == null)
             {
-                Debug.LogError("SwordCollider component not found on melee enemy or its children.");
+               // Debug.LogError("SwordCollider component not found on melee enemy or its children.");
             }
             else
             {
@@ -47,10 +46,7 @@ public class AiMovement : MonoBehaviour
         Enemy.speed = 3.5f;
         Enemy.acceleration = 8.0f;
         Enemy.angularSpeed = 120.0f;
-        Enemy.baseOffset = baseOffset; // Adjust based on your character's height
-
-        // Disable automatic rotation
-        Enemy.updateRotation = false;
+        Enemy.baseOffset = 0.5f; // Adjust based on your character's height
 
         // Ensure Animator root motion is disabled
         animator.applyRootMotion = false;
@@ -64,7 +60,7 @@ public class AiMovement : MonoBehaviour
     void EvaluateDistanceToPlayer()
     {
         float distanceToPlayer = Vector3.Distance(Enemy.transform.position, PlayerMovement.position);
-        Debug.Log("Distance to player: " + distanceToPlayer); // Debug log
+      // Debug.Log("Distance to player: " + distanceToPlayer); // Debug log
 
         if (distanceToPlayer < sightRange)
         {
@@ -72,8 +68,7 @@ public class AiMovement : MonoBehaviour
             {
                 ResumeMovement();
                 Enemy.destination = PlayerMovement.position;
-                RotateTowards(PlayerMovement.position);
-                Debug.Log("Setting destination to player position: " + PlayerMovement.position); // Debug log
+               // Debug.Log("Setting destination to player position: " + PlayerMovement.position); // Debug log
                 animator.SetBool("isWalking", true); // Trigger walking animation
                 animator.SetBool("isAttacking", false); // Ensure attack animation is not playing
             }
@@ -83,7 +78,6 @@ public class AiMovement : MonoBehaviour
                 {
                     StartCoroutine(AttackRoutine());
                 }
-                RotateTowards(PlayerMovement.position); // Ensure rotation towards the player during attack
             }
         }
         else
@@ -107,12 +101,12 @@ public class AiMovement : MonoBehaviour
         {
             if (enemyShooter != null)
             {
-                Debug.Log("Calling Shoot method on enemyShooter"); // Debug log
+               // Debug.Log("Calling Shoot method on enemyShooter"); // Debug log
                 enemyShooter.Shoot();
             }
             else
             {
-                Debug.LogError("EnemyShooter component is null. Cannot shoot.");
+               // Debug.LogError("EnemyShooter component is null. Cannot shoot.");
             }
         }
         else
@@ -125,20 +119,13 @@ public class AiMovement : MonoBehaviour
             }
             else
             {
-                Debug.LogError("SwordCollider component is null. Cannot attack.");
+               // Debug.LogError("SwordCollider component is null. Cannot attack.");
             }
         }
 
         yield return new WaitForSeconds(attackCooldown);
 
         isAnimating = false;
-    }
-
-    void RotateTowards(Vector3 target)
-    {
-        Vector3 direction = (target - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * Enemy.angularSpeed);
     }
 
     void StopMovement()

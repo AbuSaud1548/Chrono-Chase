@@ -8,6 +8,17 @@ public class EnemyShooter : MonoBehaviour
     public float bulletSpeed = 50f; // Adjust as necessary
     public float attackCooldown = 2.0f; // Time between attacks
     private float attackCooldownTimer = 0.0f;
+    private Transform playerTransform; // Reference to the player's transform
+
+    private void Start()
+    {
+        // Find the player object
+        playerTransform = GameObject.Find("FirstPersonController").transform;
+        if (playerTransform == null)
+        {
+            Debug.LogError("Player object not found. Please ensure the player object is named 'FirstPersonController'.");
+        }
+    }
 
     private void Update()
     {
@@ -16,10 +27,13 @@ public class EnemyShooter : MonoBehaviour
 
     public void Shoot()
     {
-        if (attackCooldownTimer <= 0)
+        if (attackCooldownTimer <= 0 && playerTransform != null)
         {
+            // Calculate direction to the player's center
+            Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
+
             // Instantiate a new bullet
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(directionToPlayer));
 
             if (shootSfx != null) AudioSource.PlayClipAtPoint(shootSfx, bulletSpawnPoint.position);
 
@@ -31,8 +45,8 @@ public class EnemyShooter : MonoBehaviour
                 return;
             }
 
-            // Apply forward force to the bullet
-            bulletRigidbody.velocity = bulletSpawnPoint.forward * bulletSpeed;
+            // Apply velocity towards the player's center
+            bulletRigidbody.velocity = directionToPlayer * bulletSpeed;
 
             attackCooldownTimer = attackCooldown; // Reset attack cooldown
         }
