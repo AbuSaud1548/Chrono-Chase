@@ -7,48 +7,81 @@ public class AiMovement : MonoBehaviour
     Transform PlayerMovement;
     NavMeshAgent Enemy;
     public Animator animator;
-    public float closeDistance = 3.0f;
+    public float closeDistance = 1f;
     public float sightRange = 40.0f;
     public float attackCooldown = 2.0f; // Time between attacks
     private bool isAnimating = false;
     private SwordCollider swordCollider;
+    private EnemyShooter enemyShooter;
+    public bool isRangedEnemy = false; // Flag to differentiate between melee and ranged enemies
 
     void Start()
     {
         Enemy = GetComponent<NavMeshAgent>();
         PlayerMovement = GameObject.Find("FirstPersonController").transform;
         animator = GetComponent<Animator>();
-        swordCollider = GetComponentInChildren<SwordCollider>(); // Find the SwordCollider in children
-        swordCollider.DisableCollider(); // Ensure the collider starts disabled
+
+        if (isRangedEnemy)
+        {
+            enemyShooter = GetComponentInChildren<EnemyShooter>();
+            if (enemyShooter == null)
+            {
+                Debug.LogError("EnemyShooter component not found on ranged enemy or its children.");
+            }
+        }
+        else
+        {
+            swordCollider = GetComponentInChildren<SwordCollider>();
+            if (swordCollider == null)
+            {
+                Debug.LogError("SwordCollider component not found on melee enemy or its children.");
+            }
+            else
+            {
+                swordCollider.DisableCollider(); // Ensure the collider starts disabled
+            }
+        }
+
+        // Adjust NavMeshAgent settings if necessary
+        Enemy.speed = 3.5f;
+        Enemy.acceleration = 8.0f;
+        Enemy.angularSpeed = 120.0f;
+        Enemy.baseOffset = 0.5f; // Adjust based on your character's height
+
+        // Ensure Animator root motion is disabled
+        animator.applyRootMotion = false;
     }
 
     void Update()
     {
-        float distanceToPlayer = Vector3.Distance(Enemy.transform.position, PlayerMovement.position);
-
         if (!isAnimating)
         {
-            if (distanceToPlayer < sightRange && distanceToPlayer > closeDistance)
+            EvaluateDistanceToPlayer();
+        }
+    }
+
+    void EvaluateDistanceToPlayer()
+    {
+        float distanceToPlayer = Vector3.Distance(Enemy.transform.position, PlayerMovement.position);
+        Debug.Log("Distance to player: " + distanceToPlayer); // Debug log
+
+        if (distanceToPlayer < sightRange && distanceToPlayer > closeDistance)
+        {
+            ResumeMovement();
+            Enemy.destination = PlayerMovement.position;
+            Debug.Log("Setting destination to player position: " + PlayerMovement.position); // Debug log
+            animator.SetBool("isWalking", true); // Trigger walking animation
+        }
+        else if (distanceToPlayer <= closeDistance)
+        {
+            if (!isAnimating)
             {
-                Debug.Log("Chasing Player");
-                ResumeMovement();
-                Enemy.destination = PlayerMovement.position;
-                animator.SetBool("isWalking", true); // Trigger walking animation
-                animator.SetBool("isAttacking", false); // Ensure attack animation is not playing
+                StartCoroutine(AttackRoutine());
             }
-            else if (distanceToPlayer <= closeDistance)
-            {
-                if (!animator.GetBool("isAttacking"))
-                {
-                    Debug.Log("Preparing to Attack");
-                    StartCoroutine(AttackRoutine());
-                }
-            }
-            else
-            {
-                Debug.Log("Player out of range");
-                StopMovement(); // Stop the enemy if out of sight range
-            }
+        }
+        else
+        {
+            StopMovement(); // Stop the enemy if out of sight range
         }
     }
 
@@ -57,35 +90,43 @@ public class AiMovement : MonoBehaviour
         isAnimating = true;
         StopMovement(); // Stop the enemy's movement
 
-        animator.SetBool("isAttacking", true);
         animator.SetBool("isWalking", false);
+        animator.SetTrigger("isAttacking"); // Set attack trigger
 
-        // Enable the sword collider at the start of the attack
-        swordCollider.EnableCollider();
+        // Wait for 0.1 seconds before shooting
+        yield return new WaitForSeconds(0.1f);
 
-        // Wait for the duration of the attack animation
-        yield return new WaitForSeconds(1.0f);
+        if (isRangedEnemy)
+        {
+            if (enemyShooter != null)
+            {
+                Debug.Log("Calling Shoot method on enemyShooter"); // Debug log
+                enemyShooter.Shoot();
+            }
+            else
+            {
+                Debug.LogError("EnemyShooter component is null. Cannot shoot.");
+            }
+        }
+        else
+        {
+            if (swordCollider != null)
+            {
+                swordCollider.EnableCollider();
+                yield return new WaitForSeconds(1.0f);
+                swordCollider.DisableCollider();
+            }
+            else
+            {
+                Debug.LogError("SwordCollider component is null. Cannot attack.");
+            }
+        }
 
-        // Disable the sword collider after the attack
-        swordCollider.DisableCollider();
-
-        // Wait for cooldown period before allowing another attack
         yield return new WaitForSeconds(attackCooldown);
 
         isAnimating = false;
 
-        float distanceToPlayer = Vector3.Distance(Enemy.transform.position, PlayerMovement.position);
-        if (distanceToPlayer <= closeDistance)
-        {
-            Debug.Log("Re-attacking Player");
-            StartCoroutine(AttackRoutine());
-        }
-        else
-        {
-            Debug.Log("Player out of attack range");
-            animator.SetBool("isAttacking", false);
-            ResumeMovement(); // Resume the enemy's movement
-        }
+        EvaluateDistanceToPlayer();
     }
 
     void StopMovement()
@@ -101,14 +142,19 @@ public class AiMovement : MonoBehaviour
         animator.SetBool("isWalking", true); // Resume walking animation
     }
 
-    // These methods can also be called directly from animation events if required
     public void EnableCollider()
     {
-        swordCollider.EnableCollider();
+        if (!isRangedEnemy && swordCollider != null)
+        {
+            swordCollider.EnableCollider();
+        }
     }
 
     public void DisableCollider()
     {
-        swordCollider.DisableCollider();
+        if (!isRangedEnemy && swordCollider != null)
+        {
+            swordCollider.DisableCollider();
+        }
     }
 }
