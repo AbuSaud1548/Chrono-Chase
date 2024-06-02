@@ -5,6 +5,7 @@ using UnityEngine;
 public class MedkitScript : MonoBehaviour
 {
     public float healAmount = 30;
+    public AudioClip pickup;
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,6 +17,7 @@ public class MedkitScript : MonoBehaviour
             {
                 // will be healed and medkit destroyed
                 hs.Heal(healAmount);
+                if (pickup != null) AudioSource.PlayClipAtPoint(pickup, transform.position);
                 Destroy(transform.gameObject);
             }
         }

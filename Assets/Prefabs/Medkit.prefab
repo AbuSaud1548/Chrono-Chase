@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healAmount: 25
+  pickup: {fileID: 8300000, guid: 0fe4dadd4b48c704ea29234b205aa485, type: 3}
 --- !u!65 &1857079336163496493
 BoxCollider:
   m_ObjectHideFlags: 0

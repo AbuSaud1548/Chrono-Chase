@@ -281,6 +281,7 @@ MonoBehaviour:
   sightRange: 40
   attackCooldown: 3
   baseOffset: 0
+  enemySpeed: 3.5
   isRangedEnemy: 0
 --- !u!114 &4105171812274214650
 MonoBehaviour:
@@ -295,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  damageSound: {fileID: 0}
+  damageSound: {fileID: 8300000, guid: 2b34b3672e1ac18498dd62476b5047bc, type: 3}
   isEnemy: 1
 --- !u!1001 &1999441762514761500
 PrefabInstance:

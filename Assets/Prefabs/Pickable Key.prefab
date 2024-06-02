@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df243349bd022e845b0e1590da129f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: 0fe4dadd4b48c704ea29234b205aa485, type: 3}
   keyModel: {fileID: 7235897750058717360}
 --- !u!54 &1656075374663808962
 Rigidbody:
