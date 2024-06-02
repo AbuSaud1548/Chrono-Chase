@@ -13,13 +13,15 @@ public class ProjectileShooter : MonoBehaviour
     public GameObject cam;
     public AudioClip shootSound;
     public float damageAmount = 10f; // Add damage amount
-    public float reloadCooldown = 2.0f; // Time to reload
+    public float reloadTime = 1f; // Time to reload
+    public AudioClip reloadSound;
 
     private float timeCharging = 0f;
     private bool isReloading = false; // Reloading state
     private uint currentAmmo; // Current ammo count
     private FirstPersonController fpc;
     private Animator animator;
+    private float reloadTimer = 0f;
 
     void Start()
     {
@@ -42,6 +44,28 @@ public class ProjectileShooter : MonoBehaviour
 
                 fpc.canSprint = !Input.GetKey(KeyCode.Mouse0);
                 fpc.zoomFOV = Mathf.Lerp(fpc.fov, 60, timeCharging / chargeUpTime);
+            }
+        }
+
+
+        // You can only reload if ammo is infinite
+        if (!infiniteAmmo)
+        {
+            if (Input.GetKeyDown(KeyCode.R) && !isReloading && currentAmmo < maxAmmo) // Reload button that will start the reloading process
+            {
+                isReloading = true;
+                reloadTimer = 0;
+
+                if (reloadSound != null) AudioSource.PlayClipAtPoint(reloadSound, transform.position); // Plays reload sound
+            }
+
+            if (isReloading) reloadTimer += Time.deltaTime; // Reload timer
+
+            if (reloadTimer >= reloadTime) // Will refill ammo when reload timer reaches the reload time
+            {
+                isReloading = false;
+                currentAmmo = maxAmmo;
+                reloadTimer = 0;
             }
         }
     }
@@ -82,30 +106,5 @@ public class ProjectileShooter : MonoBehaviour
             animator.SetTrigger("Shoot");
         }
 
-        // Check if we need to reload
-        if (currentAmmo == 0 && !infiniteAmmo)
-        {
-            StartCoroutine(Reload());
-        }
-    }
-
-    private IEnumerator Reload()
-    {
-        isReloading = true;
-
-        // Optionally, play a reload animation or sound here
-        if (animator != null)
-        {
-            animator.SetTrigger("Reload");
-        }
-
-        Debug.Log("Reloading...");
-        yield return new WaitForSeconds(reloadCooldown);
-
-        // Refill ammo (you can set it to max or any value you prefer)
-        currentAmmo = maxAmmo;
-
-        isReloading = false;
-        Debug.Log("Reload complete");
     }
 }

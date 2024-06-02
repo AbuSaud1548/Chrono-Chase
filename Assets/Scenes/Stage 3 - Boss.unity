@@ -196,9 +196,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5769887359101068087, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: reloadTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769887359101068087, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: shootSound
       value: 
       objectReference: {fileID: 8300000, guid: d8920faa70f696f43bbbbbe01c855e6f, type: 3}
+    - target: {fileID: 5769887359101068087, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: reloadSound
+      value: 
+      objectReference: {fileID: 8300000, guid: bb803cc6aa2e7b04b86cf055431a1a07, type: 3}
     - target: {fileID: 5769887359101068087, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: infiniteAmmo
       value: 0
