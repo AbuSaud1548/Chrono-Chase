@@ -6,11 +6,13 @@ public class AiMovement : MonoBehaviour
 {
     Transform PlayerMovement;
     NavMeshAgent Enemy;
+    CharacterHealthSystem HealthSystem;
     public Animator animator;
     public float closeDistance = 1f;
     public float sightRange = 40.0f;
     public float attackCooldown = 2.0f; // Time between attacks
     public float baseOffset = 0.5f;
+    public float enemySpeed = 3.5f;
     private bool isAnimating = false;
     private SwordCollider swordCollider;
     private EnemyShooter enemyShooter;
@@ -20,6 +22,7 @@ public class AiMovement : MonoBehaviour
     {
         Enemy = GetComponent<NavMeshAgent>();
         PlayerMovement = GameObject.Find("FirstPersonController").transform;
+        HealthSystem = GetComponent<CharacterHealthSystem>();
         animator = GetComponent<Animator>();
 
         if (isRangedEnemy)
@@ -43,10 +46,8 @@ public class AiMovement : MonoBehaviour
             }
         }
 
-        // Adjust NavMeshAgent settings if necessary
-        Enemy.speed = 3.5f;
-        Enemy.acceleration = 8.0f;
-        Enemy.angularSpeed = 120.0f;
+        // Adjust NavMeshAgent settings
+        Enemy.speed = enemySpeed;
         Enemy.baseOffset = baseOffset; // Adjust based on your character's height
 
         // Ensure Animator root motion is disabled
@@ -55,6 +56,13 @@ public class AiMovement : MonoBehaviour
 
     void Update()
     {
+        if (HealthSystem != null && HealthSystem.IsAlive)
+        {
+            Transform t = transform;
+            t.LookAt(PlayerMovement, Vector3.up);
+            transform.eulerAngles = new Vector3(0,t.transform.eulerAngles.y,0);
+        }
+
         EvaluateDistanceToPlayer();
     }
 
