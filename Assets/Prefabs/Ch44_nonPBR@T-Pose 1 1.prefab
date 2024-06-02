@@ -550,6 +550,7 @@ MonoBehaviour:
   sightRange: 40
   attackCooldown: 2
   baseOffset: 0.3
+  enemySpeed: 3.5
   isRangedEnemy: 1
 --- !u!195 &5449195822454669529
 NavMeshAgent:
@@ -658,7 +659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damageSound: {fileID: 0}
-  isEnemy: 0
+  isEnemy: 1
 --- !u!114 &3889199412131119216
 MonoBehaviour:
   m_ObjectHideFlags: 0
