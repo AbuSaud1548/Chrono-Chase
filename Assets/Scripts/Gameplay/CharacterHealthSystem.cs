@@ -31,7 +31,7 @@ public class CharacterHealthSystem : MonoBehaviour
         invFrames = invFrames < 0 ? 0 : invFrames; // Prevents invisibility frame from being less than zero
     }
 
-    public void DealDamage(float amount, float invFrames = 0.2f)
+    public void DealDamage(float amount, float invFrames = 0.1f)
     {
         if (this.invFrames <= 0 && !isDead)
         {

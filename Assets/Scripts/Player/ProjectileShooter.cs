@@ -15,6 +15,8 @@ public class ProjectileShooter : MonoBehaviour
     public float damageAmount = 10f; // Add damage amount
     public float reloadTime = 1f; // Time to reload
     public AudioClip reloadSound;
+    public bool isAutomatic;
+    public float automaticTime = 0.1f;
 
     private float timeCharging = 0f;
     private bool isReloading = false; // Reloading state
@@ -22,6 +24,7 @@ public class ProjectileShooter : MonoBehaviour
     private FirstPersonController fpc;
     private Animator animator;
     private float reloadTimer = 0f;
+    private float automaticTimer = 0f;
 
     void Start()
     {
@@ -34,8 +37,9 @@ public class ProjectileShooter : MonoBehaviour
     {
         if (cam != null && projectilePrefab != null && !isReloading)
         {
-            if ((!requiresChargeUp && Input.GetKeyDown(KeyCode.Mouse0)) || (requiresChargeUp && timeCharging >= chargeUpTime && Input.GetKeyUp(KeyCode.Mouse0)))
+            if ((!requiresChargeUp && (isAutomatic ? Input.GetKey(KeyCode.Mouse0) && automaticTimer <= 0 : Input.GetKeyDown(KeyCode.Mouse0))) || (requiresChargeUp && timeCharging >= chargeUpTime && Input.GetKeyUp(KeyCode.Mouse0)))
             {
+                if (isAutomatic) automaticTimer = automaticTime;
                 Shoot();
             }
             if (requiresChargeUp)
@@ -47,6 +51,11 @@ public class ProjectileShooter : MonoBehaviour
             }
         }
 
+        if (isAutomatic)
+        {
+            automaticTimer -= Time.deltaTime;
+            automaticTimer = automaticTimer < 0 ? 0 : automaticTimer;
+        }
 
         // You can only reload if ammo is infinite
         if (!infiniteAmmo)
