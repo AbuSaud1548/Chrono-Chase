@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: x1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9025a237bc339d649b2f1a0cb72d030b, type: 2}
+  m_sharedMaterial: {fileID: 6936077451093528987, guid: 9025a237bc339d649b2f1a0cb72d030b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -640,11 +640,15 @@ MonoBehaviour:
   doesChargeAffectFOV: 1
   chargeUpTime: 1
   infiniteAmmo: 1
-  ammo: 16
+  maxAmmo: 16
   shootPower: 24
   cam: {fileID: 4459864851310106424}
   shootSound: {fileID: 0}
   damageAmount: 10
+  reloadTime: 1
+  reloadSound: {fileID: 0}
+  isAutomatic: 0
+  automaticTime: 0.1
 --- !u!114 &834751535491237077
 MonoBehaviour:
   m_ObjectHideFlags: 0
