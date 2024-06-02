@@ -179,12 +179,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: enableZoom
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_Name
       value: FirstPersonController
       objectReference: {fileID: 0}
     - target: {fileID: 5769887359101068087, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769887359101068087, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: shootSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d8920faa70f696f43bbbbbe01c855e6f, type: 3}
+    - target: {fileID: 5769887359101068087, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 3628135281450721318, guid: e611352425188e74cb3c8ccccfe5ca44, type: 3}
+    - target: {fileID: 5769887359101068087, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: requiresChargeUp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769887359101068087, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: doesChargeAffectFOV
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -636,7 +656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fffcc65f8d9ab74aab3a0e0399f905c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 1000
   damageSound: {fileID: 0}
   isEnemy: 1
 --- !u!1001 &776516177
