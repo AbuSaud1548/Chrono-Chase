@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -17,10 +18,12 @@ public class ProjectileShooter : MonoBehaviour
     public AudioClip reloadSound;
     public bool isAutomatic;
     public float automaticTime = 0.1f;
+    public uint currentAmmo { get; private set; } // Current ammo count
+
+    [NonSerialized]
+    public bool isReloading = false; // Reloading state
 
     private float timeCharging = 0f;
-    private bool isReloading = false; // Reloading state
-    private uint currentAmmo; // Current ammo count
     private FirstPersonController fpc;
     private Animator animator;
     private float reloadTimer = 0f;
